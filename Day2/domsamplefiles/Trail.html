@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator - Light Theme</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .calculator-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+
+        .description {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e8ecf4;
+            border-radius: 12px;
+            font-size: 16px;
+            background: #ffffff;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+        }
+
+        .btn-subtract {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            color: white;
+            box-shadow: 0 4px 15px rgba(253, 121, 168, 0.3);
+        }
+
+        .btn-multiply {
+            background: linear-gradient(135deg, #55efc4, #00b894);
+            color: white;
+            box-shadow: 0 4px 15px rgba(85, 239, 196, 0.3);
+        }
+
+        .btn-divide {
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+            color: white;
+            box-shadow: 0 4px 15px rgba(253, 203, 110, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        #result {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid #e8ecf4;
+            min-height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .result-enter {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .calculator-container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>Calculator</h1>
+        <p class="description">A beautiful calculator that performs basic arithmetic operations</p>
+        
+        <div class="input-group">
+            <label for="value1">Enter First Number:</label>
+            <input type="text" id="value1" placeholder="Enter first number..." />
+        </div>
+        
+        <div class="input-group">
+            <label for="value2">Enter Second Number:</label>
+            <input type="text" id="value2" placeholder="Enter second number..." />
+        </div>
+        
+        <div class="button-grid">
+            <button class="btn-add" onclick="getAdd()">+ Add</button>
+            <button class="btn-subtract" onclick="getSub()">- Subtract</button>
+            <button class="btn-multiply" onclick="getMul()">× Multiply</button>
+            <button class="btn-divide" onclick="getDiv()">÷ Divide</button>
+        </div>
+        
+        <div id="result">Result will appear here</div>
+    </div>
+
+    <script type="text/javascript">
+        function updateResult(operation, result, color) {
+            const resultElement = document.getElementById("result");
+            resultElement.innerHTML = operation + ": " + result;
+            resultElement.style.color = color;
+            resultElement.classList.remove("result-enter");
+            setTimeout(() => {
+                resultElement.classList.add("result-enter");
+            }, 10);
+        }
+
+        function getAdd() {
+            const num1 = Number(document.getElementById("value1").value);
+            const num2 = Number(document.getElementById("value2").value);
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                updateResult("Error", "Please enter valid numbers", "#e74c3c");
+                return;
+            }
+            
+            const add = num1 + num2;
+            console.log(add);
+            updateResult("Addition", add, "#0984e3");
+        }
+
+        function getSub() {
+            const num1 = Number(document.getElementById("value1").value);
+            const num2 = Number(document.getElementById("value2").value);
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                updateResult("Error", "Please enter valid numbers", "#e74c3c");
+                return;
+            }
+            
+            const sub = num1 - num2;
+            console.log(sub);
+            updateResult("Subtraction", sub, "#e84393");
+        }
+
+        function getMul() {
+            const num1 = Number(document.getElementById("value1").value);
+            const num2 = Number(document.getElementById("value2").value);
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                updateResult("Error", "Please enter valid numbers", "#e74c3c");
+                return;
+            }
+            
+            const mul = num1 * num2;
+            console.log(mul);
+            updateResult("Multiplication", mul, "#00b894");
+        }
+
+        function getDiv() {
+            const num1 = Number(document.getElementById("value1").value);
+            const num2 = Number(document.getElementById("value2").value);
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                updateResult("Error", "Please enter valid numbers", "#e74c3c");
+                return;
+            }
+            
+            if (num2 === 0) {
+                updateResult("Error", "Cannot divide by zero", "#e74c3c");
+                return;
+            }
+            
+            const div = num1 / num2;
+            console.log(div);
+            updateResult("Division", div.toFixed(6).replace(/\.?0+$/, ''), "#e17055");
+        }
+
+        // Add Enter key support
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                getAdd();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+    <title>Calculator</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+    h1 {
+        color: #333;
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="text"] {
+        width: 200px;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+    button {
+        display: flex;
+        padding: 10px 15px;
+        margin-right: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        border: none;
+        background-color: #e65e0a;
+    }
+    button:hover {
+        background-color: #66df4b;
+        color: white;
+        border: #333 solid 1px;
+        padding: 12px 18px;
+    }
+    p {
+        font-size: 18px;
+        color: #555;
+    }
+    #result {
+        font-size: 20px;
+        margin-top: 20px;
+    }
+
+    </style>
+<body>
+    <h1>Calculator</h1>
+    <br/>
+    <p>This is a simple calculator that adds two numbers.</p>
+    <br/>
+    <label>Enter Value 1:</label>
+    <input type="text" id="value1" />
+    <br/>
+    <br/>
+    <label>Enter Value 2:</label>
+    <input type="text" id="value2" />
+    <br/>
+    <br/>
+    <button onclick="getAdd()">Click to add</button>
+    <br/>
+    <br/>
+    <button onclick="getSub()">Click to substract</button>
+    <br/>
+    <br/>
+    <button onclick="getMul()">Click to multiply</button>
+    <br/>
+    <br/>
+    <button onclick="getDiv()">Click to divide</button>
+    <br/>
+    <br/>
+    <p id="result"></p>
+    <script type="text/javascript">
+        function getAdd() {
+            //Fetch value of input with id val 1
+          const num1=Number(document.getElementById("value1").value);
+          //Fetch value of input with id val 2
+          const num2=Number(document.getElementById("value2").value);
+            //Add the two numbers
+            const add=num1+num2;
+            //Display the result in the paragraph with id result
+            console.log(add);
+            document.getElementById("result").innerHTML = "addition: " +add;
+            //change color
+            document.getElementById("result").style.color = "red";    
+        }
+        function getSub() {
+            const num1 = Number(document.getElementById("value1").value);
+            const num2 = Number(document.getElementById("value2").value);
+            const sub = num1 - num2;
+            console.log(sub);
+            document.getElementById("result").innerHTML = "subtraction: " + sub;
+            document.getElementById("result").style.color = "blue";
+        }
+        function getMul() {
+            const num1 = Number(document.getElementById("value1").value);
+            const num2 = Number(document.getElementById("value2").value);
+            const mul = num1 * num2;
+            console.log(mul);
+            document.getElementById("result").innerHTML = "multiplication: " + mul;
+            document.getElementById("result").style.color = "green";
+        }
+        function getDiv() {
+            const num1 = Number(document.getElementById("value1").value);
+            const num2 = Number(document.getElementById("value2").value);
+            if (num2 === 0) {
+                document.getElementById("result").innerHTML = "Error: Division by zero is not allowed.";
+                document.getElementById("result").style.color = "orange";
+                return;
+            }
+            const div = num1 / num2;
+            console.log(div);
+            document.getElementById("result").innerHTML = "division: " + div;
+            document.getElementById("result").style.color = "magenta";
+        }
+    </script>
+    <br/>   
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Alert Box</title>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    button {
+        padding: 15px 25px;
+        font-size: 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        justify-content: center;
+        align-items: center;
+    }
+    .alert {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgb(29, 189, 218);
+        color: rgb(0, 0, 0);
+        padding: 50px 55px;
+        border: 1px solid #1500f8;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+    <button onclick="showAlert()">Show Alert</button>
+    <script>
+        function showAlert() {
+            const alertBox = document.createElement('div');
+            alertBox.className = 'alert';
+            alertBox.innerHTML = 'This is a custom alert box!';
+            document.body.appendChild(alertBox);
+            
+            setTimeout(() => {
+                document.body.removeChild(alertBox);
+            }, 3000);
+        }
+    </script>
+    
+</body>
+</html>

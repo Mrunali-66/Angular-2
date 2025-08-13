@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+
+        .description {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: white;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        button {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+        }
+
+        .btn-sub {
+            background: linear-gradient(135deg, #4834d4, #686de0);
+            color: white;
+        }
+
+        .btn-mul {
+            background: linear-gradient(135deg, #00d2d3, #54a0ff);
+            color: white;
+        }
+
+        .btn-div {
+            background: linear-gradient(135deg, #ff9ff3, #f368e0);
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: 500;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        #result:not(:empty) {
+            background: white;
+            border-color: currentColor;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-add {
+            color: #ee5a24 !important;
+            background: rgba(238, 90, 36, 0.1) !important;
+        }
+
+        .result-sub {
+            color: #4834d4 !important;
+            background: rgba(72, 52, 212, 0.1) !important;
+        }
+
+        .result-mul {
+            color: #00d2d3 !important;
+            background: rgba(0, 210, 211, 0.1) !important;
+        }
+
+        .result-div {
+            color: #f368e0 !important;
+            background: rgba(243, 104, 224, 0.1) !important;
+        }
+
+        .result-error {
+            color: #ff6b6b !important;
+            background: rgba(255, 107, 107, 0.1) !important;
+        }
+
+        @media (max-width: 480px) {
+            .calculator-container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>Calculator</h1>
+        <p class="description">A modern calculator for basic arithmetic operations</p>
+        
+        <div class="input-group">
+            <label for="value1">Enter First Number:</label>
+            <input type="text" id="value1" placeholder="Enter first number" />
+        </div>
+        
+        <div class="input-group">
+            <label for="value2">Enter Second Number:</label>
+            <input type="text" id="value2" placeholder="Enter second number" />
+        </div>
+        
+        <div class="button-grid">
+            <button class="btn-add" onclick="getAdd()">+ Add</button>
+            <button class="btn-sub" onclick="getSub()">- Subtract</button>
+            <button class="btn-mul" onclick="getMul()">× Multiply</button>
+            <button class="btn-div" onclick="getDiv()">÷ Divide</button>
+        </div>
+        
+        <div id="result"></div>
+    </div>
+
+    <script type="text/javascript">
+        function getAdd() {
+            const num1 = Number(document.getElementById("value1").value);
+            const num2 = Number(document.getElementById("value2").value);
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                showResult("Please enter valid numbers", "error");
+                return;
+            }
+            
+            const add = num1 + num2;
+            console.log(add);
+            showResult(`${num1} + ${num2} = ${add}`, "add");
+        }
+
+        function getSub() {
+            const num1 = Number(document.getElementById("value1").value);
+            const num2 = Number(document.getElementById("value2").value);
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                showResult("Please enter valid numbers", "error");
+                return;
+            }
+            
+            const sub = num1 - num2;
+            console.log(sub);
+            showResult(`${num1} - ${num2} = ${sub}`, "sub");
+        }
+
+        function getMul() {
+            const num1 = Number(document.getElementById("value1").value);
+            const num2 = Number(document.getElementById("value2").value);
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                showResult("Please enter valid numbers", "error");
+                return;
+            }
+            
+            const mul = num1 * num2;
+            console.log(mul);
+            showResult(`${num1} × ${num2} = ${mul}`, "mul");
+        }
+
+        function getDiv() {
+            const num1 = Number(document.getElementById("value1").value);
+            const num2 = Number(document.getElementById("value2").value);
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                showResult("Please enter valid numbers", "error");
+                return;
+            }
+            
+            if (num2 === 0) {
+                showResult("Error: Cannot divide by zero", "error");
+                return;
+            }
+            
+            const div = num1 / num2;
+            console.log(div);
+            showResult(`${num1} ÷ ${num2} = ${div}`, "div");
+        }
+
+        function showResult(message, type) {
+            const resultElement = document.getElementById("result");
+            resultElement.innerHTML = message;
+            
+            // Remove all result classes
+            resultElement.className = '';
+            
+            // Add the appropriate class
+            if (type !== "error") {
+                resultElement.classList.add(`result-${type}`);
+            } else {
+                resultElement.classList.add("result-error");
+            }
+        }
+
+        // Add Enter key support
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                getAdd(); // Default to addition on Enter
+            }
+        });
+    </script>
+</body>
+</html>
